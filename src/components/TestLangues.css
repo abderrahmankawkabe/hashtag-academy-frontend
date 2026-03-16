@@ -1,0 +1,190 @@
+.section-default {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  /* horizontal */
+  align-items: center;
+  /* vertical */
+  padding: 20px;
+}
+
+.section-default h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: var(--primary);
+
+}
+
+.test-card {
+  background: var(--white);
+  max-width: 800px;
+  width: 100%;
+  padding: 50px;
+  border-radius: 25px;
+  box-shadow: var(--shadow-strong);
+  border-top: 6px solid var(--gold);
+  animation: fadeUp 0.8s ease;
+}
+
+.test-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary);
+}
+
+/* QUESTION */
+.test-card h3 {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.test-card button {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: white;
+  border: none;
+}
+
+/* BONNE REPONSE */
+.test-card button.correct {
+  background: #22c55e !important;
+  color: white !important;
+}
+
+/* MAUVAISE REPONSE */
+.test-card button.wrong {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  transition: width 0.4s ease;
+}
+
+.answers-container {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  /* ✅ vertical */
+  align-items: center;
+  /* ✅ centré */
+  gap: 15px;
+  /* espace entre réponses */
+}
+
+.answers-container button {
+  width: 60%;
+  /* largeur fixe propre */
+  min-width: 250px;
+  padding: 14px 20px;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+/* Hover plus moderne */
+.answers-container button:hover {
+  transform: translateY(-2px);
+}
+
+
+@media (max-width:768px) {
+
+  .answers-container button {
+    width: 100%;
+  }
+
+  .test-card {
+    padding: 30px 20px;
+  }
+
+}
+
+.marketing-message {
+  margin-top: 30px;
+  background: linear-gradient(to right, #ffffff, #f8fafc);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  border-left: 5px solid var(--gold);
+}
+
+.marketing-message h3 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.marketing-message p {
+  margin-bottom: 15px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+.marketing-message ul {
+  margin: 15px 0;
+  padding-left: 20px;
+  color: var(--dark);
+}
+
+.marketing-message li {
+  list-style: none;
+}
+
+.marketing-highlight {
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+  margin-top: 15px;
+}
+
+.whatsapp-btn {
+  margin-top: 15px;
+  height: 60px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 25px rgba(212, 160, 23, 0.35);
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(212, 160, 23, 0.45);
+}
+
+.whatsapp-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.whatsapp-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent);
+  transition: 0.6s;
+}
+
+.whatsapp-btn:hover::after {
+  left: 100%;
+}
