@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import axios from "axios"
 import "./Admin.css"
 
@@ -12,7 +12,21 @@ function Admin() {
     const [editing, setEditing] = useState(null)
     const [formData, setFormData] = useState({})
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const loadData = useCallback(async () => {
+
+        const res1 = await axios.get(
+            "https://hashtag-academy-backend.onrender.com/api/reservations"
+        )
+
+        const res2 = await axios.get(
+            "https://hashtag-academy-backend.onrender.com/api/teachers"
+        )
+
+        setReservations(res1.data)
+        setTeachers(res2.data)
+
+    }, [])
+
     useEffect(() => {
 
         if (!token) {
@@ -20,24 +34,9 @@ function Admin() {
             return
         }
 
-        const loadData = async () => {
-
-            const res1 = await axios.get(
-                "https://hashtag-academy-backend.onrender.com/api/reservations"
-            )
-
-            const res2 = await axios.get(
-                "https://hashtag-academy-backend.onrender.com/api/teachers"
-            )
-
-            setReservations(res1.data)
-            setTeachers(res2.data)
-
-        }
-
         loadData()
 
-    }, [token])
+    }, [token, loadData])
 
 
     const logout = () => {
@@ -120,7 +119,7 @@ function Admin() {
         }
 
         closeModal()
-        window.location.reload()
+        loadData()
     }
 
 
@@ -128,7 +127,6 @@ function Admin() {
         (r.nom || "").toLowerCase().includes(search.toLowerCase()) ||
         (r.email || "").toLowerCase().includes(search.toLowerCase())
     )
-
 
     const filteredTeachers = teachers.filter(t =>
         (t.nom || "").toLowerCase().includes(search.toLowerCase()) ||
@@ -268,101 +266,6 @@ function Admin() {
                 </tbody>
 
             </table>
-
-
-            {editing && (
-
-                <div className="modal">
-
-                    <div className="modal-content">
-
-                        <h2>
-                            {editing.type === "reservation"
-                                ? "Update Reservation"
-                                : "Update Teacher"}
-                        </h2>
-
-                        <input
-                            name="nom"
-                            value={formData.nom || ""}
-                            onChange={handleChange}
-                            placeholder="Nom"
-                        />
-
-                        <input
-                            name="email"
-                            value={formData.email || ""}
-                            onChange={handleChange}
-                            placeholder="Email"
-                        />
-
-                        {editing.type === "reservation" && (
-
-                            <>
-                                <input
-                                    name="ville"
-                                    value={formData.ville || ""}
-                                    onChange={handleChange}
-                                    placeholder="Ville"
-                                />
-
-                                <input
-                                    name="programme"
-                                    value={formData.programme || ""}
-                                    onChange={handleChange}
-                                    placeholder="Programme"
-                                />
-                            </>
-
-                        )}
-
-                        {editing.type === "teacher" && (
-
-                            <>
-                                <input
-                                    name="specialite"
-                                    value={formData.specialite || ""}
-                                    onChange={handleChange}
-                                    placeholder="Specialite"
-                                />
-
-                                <label className="upload-label">
-                                    Upload new CV
-                                    <input
-                                        type="file"
-                                        onChange={(e) => setFormData({
-                                            ...formData,
-                                            cvFile: e.target.files[0]
-                                        })}
-                                    />
-                                </label>
-                            </>
-
-                        )}
-
-                        <div className="modal-buttons">
-
-                            <button
-                                className="save-btn"
-                                onClick={saveUpdate}
-                            >
-                                Save
-                            </button>
-
-                            <button
-                                className="cancel-btn"
-                                onClick={closeModal}
-                            >
-                                Cancel
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            )}
 
         </div>
 
