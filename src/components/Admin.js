@@ -6,35 +6,23 @@ function Admin(){
 
 const token = localStorage.getItem("token")
 
-const API = "https://hashtag-academy-backend.onrender.com"
+const API="https://hashtag-academy-backend.onrender.com"
 
-const [reservations,setReservations] = useState([])
-const [teachers,setTeachers] = useState([])
-const [loading,setLoading] = useState(true)
+const [reservations,setReservations]=useState([])
+const [teachers,setTeachers]=useState([])
+const [search,setSearch]=useState("")
 
-const [search,setSearch] = useState("")
-
-const [editing,setEditing] = useState(null)
-const [formData,setFormData] = useState({})
+const [editing,setEditing]=useState(null)
+const [formData,setFormData]=useState({})
 
 
-const loadData = useCallback(async()=>{
+const loadData=useCallback(async()=>{
 
-try{
-
-const res1 = await axios.get(`${API}/api/reservations`)
-const res2 = await axios.get(`${API}/api/teachers`)
+const res1=await axios.get(`${API}/api/reservations`)
+const res2=await axios.get(`${API}/api/teachers`)
 
 setReservations(res1.data)
 setTeachers(res2.data)
-
-}catch(err){
-
-console.log(err)
-
-}
-
-setLoading(false)
 
 },[API])
 
@@ -53,7 +41,7 @@ loadData()
 },[token,loadData])
 
 
-const logout = ()=>{
+const logout=()=>{
 
 localStorage.removeItem("token")
 window.location.href="/admin/login"
@@ -61,7 +49,7 @@ window.location.href="/admin/login"
 }
 
 
-const deleteReservation = async(id)=>{
+const deleteReservation=async(id)=>{
 
 await axios.delete(
 `${API}/api/reservations/${id}`,
@@ -73,7 +61,7 @@ setReservations(reservations.filter(r=>r._id!==id))
 }
 
 
-const deleteTeacher = async(id)=>{
+const deleteTeacher=async(id)=>{
 
 await axios.delete(
 `${API}/api/teachers/${id}`,
@@ -85,7 +73,7 @@ setTeachers(teachers.filter(t=>t._id!==id))
 }
 
 
-const openEdit = (item,type)=>{
+const openEdit=(item,type)=>{
 
 setEditing({type,id:item._id})
 setFormData(item)
@@ -93,26 +81,24 @@ setFormData(item)
 }
 
 
-const closeModal = ()=>{
+const closeModal=()=>{
 
 setEditing(null)
 
 }
 
 
-const handleChange = (e)=>{
+const handleChange=(e)=>{
 
 setFormData({
-
 ...formData,
 [e.target.name]:e.target.value
-
 })
 
 }
 
 
-const saveUpdate = async()=>{
+const saveUpdate=async()=>{
 
 if(editing.type==="reservation"){
 
@@ -126,9 +112,15 @@ formData,
 
 if(editing.type==="teacher"){
 
+const data=new FormData()
+
+data.append("nom",formData.nom)
+data.append("email",formData.email)
+data.append("specialite",formData.specialite)
+
 await axios.put(
 `${API}/api/teachers/${editing.id}`,
-formData,
+data,
 {headers:{Authorization:token}}
 )
 
@@ -140,23 +132,16 @@ loadData()
 }
 
 
-const filteredReservations = reservations.filter(r=>
+const filteredReservations=reservations.filter(r=>
 (r.nom||"").toLowerCase().includes(search.toLowerCase())||
 (r.email||"").toLowerCase().includes(search.toLowerCase())
 )
 
 
-const filteredTeachers = teachers.filter(t=>
+const filteredTeachers=teachers.filter(t=>
 (t.nom||"").toLowerCase().includes(search.toLowerCase())||
 (t.email||"").toLowerCase().includes(search.toLowerCase())
 )
-
-
-if(loading){
-
-return <div className="admin-loading">Loading...</div>
-
-}
 
 
 return(
@@ -164,28 +149,8 @@ return(
 <div className="admin-container">
 
 <div className="admin-header">
-
 <h1>Admin Dashboard</h1>
-
-<button className="logout-btn" onClick={logout}>
-Logout
-</button>
-
-</div>
-
-
-<div className="admin-stats">
-
-<div className="card">
-<h3>Reservations</h3>
-<p>{reservations.length}</p>
-</div>
-
-<div className="card">
-<h3>Teachers</h3>
-<p>{teachers.length}</p>
-</div>
-
+<button className="logout-btn" onClick={logout}>Logout</button>
 </div>
 
 
@@ -202,18 +167,14 @@ onChange={(e)=>setSearch(e.target.value)}
 <table>
 
 <thead>
-
 <tr>
-
 <th>Nom</th>
 <th>Email</th>
 <th>Ville</th>
 <th>Programme</th>
 <th>Date</th>
 <th>Action</th>
-
 </tr>
-
 </thead>
 
 <tbody>
@@ -260,18 +221,14 @@ Delete
 <table>
 
 <thead>
-
 <tr>
-
 <th>Nom</th>
 <th>Email</th>
 <th>Specialite</th>
 <th>CV</th>
 <th>Date</th>
 <th>Action</th>
-
 </tr>
-
 </thead>
 
 <tbody>
@@ -337,21 +294,51 @@ Delete
 name="nom"
 value={formData.nom||""}
 onChange={handleChange}
+placeholder="Nom"
 />
 
 <input
 name="email"
 value={formData.email||""}
 onChange={handleChange}
+placeholder="Email"
 />
 
-<button onClick={saveUpdate}>
-Save
-</button>
+{editing.type==="reservation"&&(
 
-<button onClick={closeModal}>
-Cancel
-</button>
+<>
+
+<input
+name="ville"
+value={formData.ville||""}
+onChange={handleChange}
+placeholder="Ville"
+/>
+
+<input
+name="programme"
+value={formData.programme||""}
+onChange={handleChange}
+placeholder="Programme"
+/>
+
+</>
+
+)}
+
+{editing.type==="teacher"&&(
+
+<input
+name="specialite"
+value={formData.specialite||""}
+onChange={handleChange}
+placeholder="Specialite"
+/>
+
+)}
+
+<button onClick={saveUpdate}>Save</button>
+<button onClick={closeModal}>Cancel</button>
 
 </div>
 
