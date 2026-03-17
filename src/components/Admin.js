@@ -4,227 +4,212 @@ import "./Admin.css"
 
 function Admin() {
 
-    const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token")
 
-    const [reservations, setReservations] = useState([])
-    const [teachers, setTeachers] = useState([])
-    const [search, setSearch] = useState("")
-    const [editing, setEditing] = useState(null)
-    const [formData, setFormData] = useState({})
+  const [reservations, setReservations] = useState([])
+  const [teachers, setTeachers] = useState([])
+  const [search, setSearch] = useState("")
 
-    const loadData = useCallback(async () => {
+  const API = "https://hashtag-academy-backend.onrender.com"
 
-        const res1 = await axios.get(
-            "https://hashtag-academy-backend.onrender.com/api/reservations"
-        )
+  const loadData = useCallback(async () => {
 
-        const res2 = await axios.get(
-            "https://hashtag-academy-backend.onrender.com/api/teachers"
-        )
+    try {
 
-        setReservations(res1.data)
-        setTeachers(res2.data)
+      const res1 = await axios.get(`${API}/api/reservations`)
+      const res2 = await axios.get(`${API}/api/teachers`)
 
-    }, [])
+      setReservations(res1.data)
+      setTeachers(res2.data)
 
-    useEffect(() => {
-
-        if (!token) {
-            window.location.href = "/admin/login"
-            return
-        }
-
-        loadData()
-
-    }, [token, loadData])
-
-
-    const logout = () => {
-        localStorage.removeItem("token")
-        window.location.href = "/admin/login"
+    } catch (err) {
+      console.log(err)
     }
 
+  }, [])
 
-    const deleteReservation = async (id) => {
+  useEffect(() => {
 
-        await axios.delete(
-            `https://hashtag-academy-backend.onrender.com/api/reservations/${id}`,
-            { headers: { Authorization: token } }
-        )
-
-        setReservations(reservations.filter(r => r._id !== id))
+    if (!token) {
+      window.location.href = "/admin/login"
+      return
     }
 
+    loadData()
 
-    const deleteTeacher = async (id) => {
-
-        await axios.delete(
-            `https://hashtag-academy-backend.onrender.com/api/teachers/${id}`,
-            { headers: { Authorization: token } }
-        )
-
-        setTeachers(teachers.filter(t => t._id !== id))
-    }
+  }, [token, loadData])
 
 
-    const openEdit = (item, type) => {
-        setEditing({ type, id: item._id })
-        setFormData(item)
-    }
+  const logout = () => {
+
+    localStorage.removeItem("token")
+    window.location.href = "/admin/login"
+
+  }
 
 
-    const closeModal = () => {
-        setEditing(null)
-    }
+  const deleteReservation = async (id) => {
 
-
-    const filteredReservations = reservations.filter(r =>
-        (r.nom || "").toLowerCase().includes(search.toLowerCase()) ||
-        (r.email || "").toLowerCase().includes(search.toLowerCase())
+    await axios.delete(
+      `${API}/api/reservations/${id}`,
+      { headers: { Authorization: token } }
     )
 
-    const filteredTeachers = teachers.filter(t =>
-        (t.nom || "").toLowerCase().includes(search.toLowerCase()) ||
-        (t.email || "").toLowerCase().includes(search.toLowerCase())
+    setReservations(reservations.filter(r => r._id !== id))
+
+  }
+
+
+  const deleteTeacher = async (id) => {
+
+    await axios.delete(
+      `${API}/api/teachers/${id}`,
+      { headers: { Authorization: token } }
     )
 
+    setTeachers(teachers.filter(t => t._id !== id))
 
-    return (
-
-        <div className="admin-container">
-
-            <div className="admin-header">
-                <h1>Admin Dashboard</h1>
-                <button className="logout-btn" onClick={logout}>Logout</button>
-            </div>
-
-            <input
-                className="admin-search"
-                placeholder="Search name or email..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-            />
-
-            <h2>Reservations</h2>
-
-            <table>
-
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Email</th>
-                        <th>Ville</th>
-                        <th>Programme</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {filteredReservations.map(r => (
-
-                        <tr key={r._id}>
-
-                            <td>{r.nom}</td>
-                            <td>{r.email}</td>
-                            <td>{r.ville}</td>
-                            <td>{r.programme}</td>
-                            <td>{new Date(r.createdAt).toLocaleString()}</td>
-
-                            <td>
-
-                                <button
-                                    className="update-btn"
-                                    onClick={() => openEdit(r, "reservation")}
-                                >
-                                    Update
-                                </button>
-
-                                <button
-                                    className="delete-btn"
-                                    onClick={() => deleteReservation(r._id)}
-                                >
-                                    Delete
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                    ))}
-
-                </tbody>
-
-            </table>
+  }
 
 
-            <h2>Teachers</h2>
+  const filteredReservations = reservations.filter(r =>
+    (r.nom || "").toLowerCase().includes(search.toLowerCase()) ||
+    (r.email || "").toLowerCase().includes(search.toLowerCase())
+  )
 
-            <table>
 
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Email</th>
-                        <th>Specialite</th>
-                        <th>CV</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+  const filteredTeachers = teachers.filter(t =>
+    (t.nom || "").toLowerCase().includes(search.toLowerCase()) ||
+    (t.email || "").toLowerCase().includes(search.toLowerCase())
+  )
 
-                <tbody>
 
-                    {filteredTeachers.map(t => (
+  return (
 
-                        <tr key={t._id}>
+    <div className="admin-container">
 
-                            <td>{t.nom}</td>
-                            <td>{t.email}</td>
-                            <td>{t.specialite}</td>
+      <div className="admin-header">
+        <h1>Admin Dashboard</h1>
+        <button className="logout-btn" onClick={logout}>Logout</button>
+      </div>
 
-                            <td>
-                                <a
-                                    href={`https://hashtag-academy-backend.onrender.com/uploads/${t.cv}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    Voir CV
-                                </a>
-                            </td>
 
-                            <td>{new Date(t.createdAt).toLocaleString()}</td>
+      <input
+        className="admin-search"
+        placeholder="Search name or email..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-                            <td>
 
-                                <button
-                                    className="update-btn"
-                                    onClick={() => openEdit(t, "teacher")}
-                                >
-                                    Update
-                                </button>
+      <h2>Reservations</h2>
 
-                                <button
-                                    className="delete-btn"
-                                    onClick={() => deleteTeacher(t._id)}
-                                >
-                                    Delete
-                                </button>
+      <table>
 
-                            </td>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Ville</th>
+            <th>Programme</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-                        </tr>
+        <tbody>
 
-                    ))}
+          {filteredReservations.map(r => (
 
-                </tbody>
+            <tr key={r._id}>
 
-            </table>
+              <td>{r.nom}</td>
+              <td>{r.email}</td>
+              <td>{r.ville}</td>
+              <td>{r.programme}</td>
+              <td>{new Date(r.createdAt).toLocaleString()}</td>
 
-        </div>
+              <td>
 
-    )
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteReservation(r._id)}
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+
+      <h2>Teachers</h2>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Specialite</th>
+            <th>CV</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {filteredTeachers.map(t => (
+
+            <tr key={t._id}>
+
+              <td>{t.nom}</td>
+              <td>{t.email}</td>
+              <td>{t.specialite}</td>
+
+              <td>
+
+                <a
+                  href={`${API}/uploads/${t.cv}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Voir CV
+                </a>
+
+              </td>
+
+              <td>{new Date(t.createdAt).toLocaleString()}</td>
+
+              <td>
+
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteTeacher(t._id)}
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          ))}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  )
 
 }
 
