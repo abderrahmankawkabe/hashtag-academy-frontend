@@ -1,14 +1,14 @@
 import { Navigate } from "react-router-dom"
 
-function ProtectedRoute({children}){
+function ProtectedRoute({ children }) {
 
-const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token")
 
-if(!token){
-return <Navigate to="/admin/login"/>
-}
+    if (!token) {
+        return <Navigate to="/admin/login" />
+    }
 
-return children
+    return children
 
 }
 

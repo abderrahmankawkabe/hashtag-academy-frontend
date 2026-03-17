@@ -4,6 +4,15 @@ import "./Admin.css"
 
 function Admin() {
 
+    useEffect(() => {
+
+        const token = localStorage.getItem("token")
+
+        if (!token) {
+            window.location.href = "/admin/login"
+        }
+
+    }, [])
 
     const [reservations, setReservations] = useState([])
     const [teachers, setTeachers] = useState([])
@@ -17,14 +26,32 @@ function Admin() {
 
     const token = localStorage.getItem("token")
 
+    if (!token) {
+        window.location.href = "/admin/login"
+    }
+
     useEffect(() => {
+
+        if (!token) {
+            window.location.href = "/admin/login"
+            return
+        }
+
         loadData()
+
     }, [])
 
     const loadData = async () => {
 
-        const res1 = await axios.get("https://hashtag-academy-backend.onrender.com/api/reservations")
-        const res2 = await axios.get("https://hashtag-academy-backend.onrender.com/api/teachers")
+        const res1 = await axios.get(
+            "https://hashtag-academy-backend.onrender.com/api/reservations",
+            { headers: { Authorization: token } }
+        )
+
+        const res2 = await axios.get(
+            "https://hashtag-academy-backend.onrender.com/api/teachers",
+            { headers: { Authorization: token } }
+        )
 
         setReservations(res1.data)
         setTeachers(res2.data)

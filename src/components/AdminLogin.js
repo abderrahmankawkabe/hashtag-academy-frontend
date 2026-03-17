@@ -3,66 +3,74 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import "./Admin.css"
 
-function AdminLogin(){
+function AdminLogin() {
 
-const [email,setEmail] = useState("")
-const [password,setPassword] = useState("")
+    const [loading, setLoading] = useState(false)
 
-const navigate = useNavigate()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-const login = async(e)=>{
+    const navigate = useNavigate()
 
-e.preventDefault()
+    const login = async (e) => {
 
-try{
+        e.preventDefault()
 
-const res = await axios.post(
-"https://hashtag-academy-backend.onrender.com/api/admin/login",
-{email,password}
-)
+        setLoading(true)
 
-localStorage.setItem("token",res.data.token)
+        try {
 
-navigate("/admin")
+            const res = await axios.post(
+                "https://hashtag-academy-backend.onrender.com/api/admin/login",
+                { email, password }
+            )
 
-}catch(err){
+            localStorage.setItem("token", res.data.token)
 
-alert("Email or password incorrect")
+            navigate("/admin")
 
-}
+        } catch (err) {
 
-}
+            alert("Email or password incorrect")
 
-return(
+        }
 
-<div className="login-container">
+        setLoading(false)
 
-<img src="/logo.webp" alt="logo" className="login-logo"/>
+    }
 
-<h2>Admin Login</h2>
+    return (
 
-<form onSubmit={login}>
+        <div className="login-container">
 
-<input
-placeholder="Email"
-value={email}
-onChange={(e)=>setEmail(e.target.value)}
-/>
+            <img src="/logo.webp" alt="logo" className="login-logo" />
 
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e)=>setPassword(e.target.value)}
-/>
+            <h2>Admin Login</h2>
 
-<button>Login</button>
+            <form onSubmit={login}>
 
-</form>
+                <input
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-</div>
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-)
+                <button disabled={loading}>
+                    {loading ? "Connexion..." : "Login"}
+                </button>
+
+            </form>
+
+        </div>
+
+    )
 
 }
 
