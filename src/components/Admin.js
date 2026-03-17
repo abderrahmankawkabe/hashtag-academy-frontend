@@ -78,51 +78,6 @@ function Admin() {
     }
 
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        })
-    }
-
-
-    const saveUpdate = async () => {
-
-        if (editing.type === "reservation") {
-
-            await axios.put(
-                `https://hashtag-academy-backend.onrender.com/api/reservations/${editing.id}`,
-                formData,
-                { headers: { Authorization: token } }
-            )
-
-        }
-
-        if (editing.type === "teacher") {
-
-            const data = new FormData()
-
-            data.append("nom", formData.nom)
-            data.append("email", formData.email)
-            data.append("specialite", formData.specialite)
-
-            if (formData.cvFile) {
-                data.append("cv", formData.cvFile)
-            }
-
-            await axios.put(
-                `https://hashtag-academy-backend.onrender.com/api/teachers/${editing.id}`,
-                data,
-                { headers: { Authorization: token } }
-            )
-
-        }
-
-        closeModal()
-        loadData()
-    }
-
-
     const filteredReservations = reservations.filter(r =>
         (r.nom || "").toLowerCase().includes(search.toLowerCase()) ||
         (r.email || "").toLowerCase().includes(search.toLowerCase())
