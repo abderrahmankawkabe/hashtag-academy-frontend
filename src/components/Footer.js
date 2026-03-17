@@ -9,7 +9,7 @@ function Footer() {
 
         {/* LOGO */}
         <div>
-          <img src="logo.webp" alt="Logo" className="footer-logo" />
+          <img src="/logo.webp" alt="Logo" className="footer-logo" />
           <p>Votre Avenir Commence Ici.</p>
         </div>
 
