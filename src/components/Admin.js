@@ -12,6 +12,7 @@ function Admin() {
     const [editing, setEditing] = useState(null)
     const [formData, setFormData] = useState({})
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
 
         if (!token) {
