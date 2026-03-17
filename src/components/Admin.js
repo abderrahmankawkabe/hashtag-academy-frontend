@@ -4,31 +4,13 @@ import "./Admin.css"
 
 function Admin() {
 
-    useEffect(() => {
-
-        const token = localStorage.getItem("token")
-
-        if (!token) {
-            window.location.href = "/admin/login"
-        }
-
-    }, [])
+    const token = localStorage.getItem("token")
 
     const [reservations, setReservations] = useState([])
     const [teachers, setTeachers] = useState([])
-
     const [search, setSearch] = useState("")
-
     const [editing, setEditing] = useState(null)
     const [formData, setFormData] = useState({})
-
-
-
-    const token = localStorage.getItem("token")
-
-    if (!token) {
-        window.location.href = "/admin/login"
-    }
 
     useEffect(() => {
 
@@ -37,26 +19,25 @@ function Admin() {
             return
         }
 
+        const loadData = async () => {
+
+            const res1 = await axios.get(
+                "https://hashtag-academy-backend.onrender.com/api/reservations"
+            )
+
+            const res2 = await axios.get(
+                "https://hashtag-academy-backend.onrender.com/api/teachers"
+            )
+
+            setReservations(res1.data)
+            setTeachers(res2.data)
+
+        }
+
         loadData()
 
-    }, [])
+    }, [token])
 
-    const loadData = async () => {
-
-        const res1 = await axios.get(
-            "https://hashtag-academy-backend.onrender.com/api/reservations",
-            { headers: { Authorization: token } }
-        )
-
-        const res2 = await axios.get(
-            "https://hashtag-academy-backend.onrender.com/api/teachers",
-            { headers: { Authorization: token } }
-        )
-
-        setReservations(res1.data)
-        setTeachers(res2.data)
-
-    }
 
     const logout = () => {
         localStorage.removeItem("token")
@@ -71,9 +52,9 @@ function Admin() {
             { headers: { Authorization: token } }
         )
 
-        loadData()
-
+        setReservations(reservations.filter(r => r._id !== id))
     }
+
 
     const deleteTeacher = async (id) => {
 
@@ -82,18 +63,20 @@ function Admin() {
             { headers: { Authorization: token } }
         )
 
-        loadData()
-
+        setTeachers(teachers.filter(t => t._id !== id))
     }
+
 
     const openEdit = (item, type) => {
         setEditing({ type, id: item._id })
         setFormData(item)
     }
 
+
     const closeModal = () => {
         setEditing(null)
     }
+
 
     const handleChange = (e) => {
         setFormData({
@@ -101,6 +84,7 @@ function Admin() {
             [e.target.name]: e.target.value
         })
     }
+
 
     const saveUpdate = async () => {
 
@@ -135,19 +119,21 @@ function Admin() {
         }
 
         closeModal()
-        loadData()
-
+        window.location.reload()
     }
+
 
     const filteredReservations = reservations.filter(r =>
         (r.nom || "").toLowerCase().includes(search.toLowerCase()) ||
         (r.email || "").toLowerCase().includes(search.toLowerCase())
     )
 
+
     const filteredTeachers = teachers.filter(t =>
         (t.nom || "").toLowerCase().includes(search.toLowerCase()) ||
         (t.email || "").toLowerCase().includes(search.toLowerCase())
     )
+
 
     return (
 
@@ -157,7 +143,6 @@ function Admin() {
                 <h1>Admin Dashboard</h1>
                 <button className="logout-btn" onClick={logout}>Logout</button>
             </div>
-
 
             <input
                 className="admin-search"
@@ -218,6 +203,7 @@ function Admin() {
                 </tbody>
 
             </table>
+
 
             <h2>Teachers</h2>
 
@@ -282,6 +268,7 @@ function Admin() {
 
             </table>
 
+
             {editing && (
 
                 <div className="modal">
@@ -331,7 +318,6 @@ function Admin() {
                         {editing.type === "teacher" && (
 
                             <>
-
                                 <input
                                     name="specialite"
                                     value={formData.specialite || ""}
@@ -339,28 +325,8 @@ function Admin() {
                                     placeholder="Specialite"
                                 />
 
-                                {formData.cv && (
-
-                                    <div className="cv-preview">
-
-                                        <p>Current CV :</p>
-
-                                        <a
-                                            href={`https://hashtag-academy-backend.onrender.com/uploads/${formData.cv}`}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                        >
-                                            View CV
-                                        </a>
-
-                                    </div>
-
-                                )}
-
                                 <label className="upload-label">
-
                                     Upload new CV
-
                                     <input
                                         type="file"
                                         onChange={(e) => setFormData({
@@ -368,9 +334,7 @@ function Admin() {
                                             cvFile: e.target.files[0]
                                         })}
                                     />
-
                                 </label>
-
                             </>
 
                         )}
