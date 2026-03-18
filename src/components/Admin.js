@@ -172,6 +172,7 @@ onChange={(e)=>setSearch(e.target.value)}
 <th>Email</th>
 <th>Ville</th>
 <th>Programme</th>
+<th>Telephone</th>
 <th>Date</th>
 <th>Action</th>
 </tr>
@@ -187,6 +188,7 @@ onChange={(e)=>setSearch(e.target.value)}
 <td>{r.email}</td>
 <td>{r.ville}</td>
 <td>{r.programme}</td>
+<td>{r.telephone}</td>
 <td>{new Date(r.createdAt).toLocaleString()}</td>
 
 <td>
@@ -225,6 +227,7 @@ Delete
 <th>Nom</th>
 <th>Email</th>
 <th>Specialite</th>
+<th>Telephone</th>
 <th>CV</th>
 <th>Date</th>
 <th>Action</th>
@@ -240,6 +243,7 @@ Delete
 <td>{t.nom}</td>
 <td>{t.email}</td>
 <td>{t.specialite}</td>
+<td>{t.telephone}</td>
 
 <td>
 
