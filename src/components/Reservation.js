@@ -63,39 +63,39 @@ function Reservation() {
   // STUDENT SUBMIT WHATSAPP
   // ========================
 
- const handleStudentSubmit = async (e) => {
+  const handleStudentSubmit = async (e) => {
 
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
+    try {
 
-    await axios.post("https://hashtag-academy-backend.onrender.com/api/reservations", {
+      await axios.post("https://hashtag-academy-backend.onrender.com/api/reservations", {
 
-      nom: formData.nom,
-      prenom: formData.prenom,
-      email: formData.email,
-      telephone: formData.telephone,
-      ville: formData.ville,
-      programme: choixFinal,
-      type: typeChoix
+        nom: formData.nom,
+        prenom: formData.prenom,
+        email: formData.email,
+        telephone: formData.telephone,
+        ville: formData.ville,
+        programme: choixFinal,
+        type: typeChoix
 
-    });
+      });
 
-    console.log("Reservation saved in database");
+      console.log("Reservation saved in database");
 
-  } catch (err) {
+    } catch (err) {
 
-    console.error(err);
+      console.error(err);
 
-  }
+    }
 
-  // ===== WHATSAPP =====
+    // ===== WHATSAPP =====
 
-  const now = new Date();
-  const date = now.toLocaleDateString("fr-FR");
-  const heure = now.toLocaleTimeString("fr-FR");
+    const now = new Date();
+    const date = now.toLocaleDateString("fr-FR");
+    const heure = now.toLocaleTimeString("fr-FR");
 
-  const message = `
+    const message = `
 📌 NOUVELLE INSCRIPTION
 
 Date : ${date}
@@ -110,13 +110,13 @@ Ville : ${formData.ville}
 Programme : ${choixFinal}
 `;
 
-  const numeroWhatsApp = "212620360395";
+    const numeroWhatsApp = "212620360395";
 
-  const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(message)}`;
 
-  window.open(url, "_blank");
+    window.open(url, "_blank");
 
-};
+  };
 
   // ========================
   // FORMATEUR SUBMIT
@@ -124,39 +124,39 @@ Programme : ${choixFinal}
 
   const handleTeacherSubmit = async (e) => {
 
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
+    try {
 
-    const formDataToSend = new FormData();
+      const formDataToSend = new FormData();
 
-    formDataToSend.append("nom", formData.nom);
-    formDataToSend.append("prenom", formData.prenom);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("telephone", formData.telephone);
-    formDataToSend.append("specialite", formData.specialite);
-    formDataToSend.append("experience", formData.experience);
-    formDataToSend.append("cv", formData.cv);
+      formDataToSend.append("nom", formData.nom);
+      formDataToSend.append("prenom", formData.prenom);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("telephone", formData.telephone);
+      formDataToSend.append("specialite", formData.specialite);
+      formDataToSend.append("experience", formData.experience);
+      formDataToSend.append("cv", formData.cv);
 
-    await axios.post(
-      "https://hashtag-academy-backend.onrender.com/api/teachers",
-      formDataToSend,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data"
+      await axios.post(
+        "https://hashtag-academy-backend.onrender.com/api/teachers",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
         }
-      }
-    );
+      );
 
-    alert("Candidature envoyée !");
+      alert("Candidature envoyée !");
 
-  } catch (err) {
+    } catch (err) {
 
-    console.error(err);
+      console.error(err);
 
-  }
+    }
 
-};
+  };
 
   return (
 
@@ -167,14 +167,14 @@ Programme : ${choixFinal}
       <div className="reservation-switch">
 
         <button
-          className={userType === "student" ? "active" : ""}
+          className={`btn-student ${userType === "student" ? "active" : ""}`}
           onClick={() => setUserType("student")}
         >
           🎓 Je veux apprendre
         </button>
 
         <button
-          className={userType === "teacher" ? "active" : ""}
+          className={`btn-teacher ${userType === "teacher" ? "active" : ""}`}
           onClick={() => setUserType("teacher")}
         >
           👨‍🏫 Devenir formateur

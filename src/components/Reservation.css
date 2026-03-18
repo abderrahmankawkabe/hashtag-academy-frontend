@@ -269,116 +269,141 @@
 
 }
 
-.phone-input{
-width:100%;
+.phone-input {
+    width: 100%;
 }
 
 /* Container téléphone */
-.reservation-form .react-tel-input{
-width:100%;
+.reservation-form .react-tel-input {
+    width: 100%;
 }
 
 /* Input téléphone */
-.reservation-form .react-tel-input .form-control{
-width:100% !important;
-height:55px !important;
+.reservation-form .react-tel-input .form-control {
+    width: 100% !important;
+    height: 55px !important;
 
-border:1px solid #ddd !important;
-border-radius:35px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 35px !important;
 
-padding-left:75px !important;
-font-size:15px !important;
+    padding-left: 75px !important;
+    font-size: 15px !important;
 
-background:white !important;
+    background: white !important;
 }
 
 /* PHONE INPUT CLEAN */
 
-.reservation-form .react-tel-input{
-width:100%;
+.reservation-form .react-tel-input {
+    width: 100%;
 }
 
-.reservation-form .react-tel-input .form-control{
-width:100% !important;
-height:55px !important;
+.reservation-form .react-tel-input .form-control {
+    width: 100% !important;
+    height: 55px !important;
 
-border:1px solid #ddd !important;
-border-radius:35px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 35px !important;
 
-padding-left:70px !important;
-font-size:15px !important;
+    padding-left: 70px !important;
+    font-size: 15px !important;
 
-background:white !important;
+    background: white !important;
 }
 
 /* Flag container */
-.reservation-form .react-tel-input .flag-dropdown{
-border:none !important;
-background:transparent !important;
+.reservation-form .react-tel-input .flag-dropdown {
+    border: none !important;
+    background: transparent !important;
 
-left:10px;
-top:33%;
-transform:translateY(-50%);
+    left: 10px;
+    top: 33%;
+    transform: translateY(-50%);
 }
 
 /* Flag */
-.reservation-form .react-tel-input .selected-flag{
-height:55px !important;
-padding-left:15px !important;
+.reservation-form .react-tel-input .selected-flag {
+    height: 55px !important;
+    padding-left: 15px !important;
 }
 
 /* Country dropdown */
-.reservation-form .react-tel-input .country-list{
-border-radius:15px !important;
+.reservation-form .react-tel-input .country-list {
+    border-radius: 15px !important;
 }
 
-.reservation-container{
-max-width:1000px;
-margin:auto;
-padding:40px 20px;
+.reservation-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
 }
 
-.reservation-switch{
-display:flex;
-justify-content:center;
-gap:20px;
-margin-bottom:30px;
+.reservation-switch {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
-.reservation-switch button{
-padding:14px 25px;
-border-radius:40px;
-border:none;
-cursor:pointer;
-font-weight:600;
-background:#eee;
-transition:0.3s;
+.reservation-switch button {
+    padding: 14px 25px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    color: white;
 }
 
-.reservation-switch button.active{
-background:var(--primary);
-color:white;
+/* BOUTON STUDENT */
+.btn-student {
+  background: linear-gradient(135deg, #00b894, #00cec9);
 }
 
-.teacher-btn{
-height:60px;
-border:none;
-border-radius:40px;
-background:linear-gradient(135deg,#1a73e8,#0b57d0);
-color:white;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-transition:0.3s;
+/* BOUTON TEACHER */
+.btn-teacher {
+  background: linear-gradient(135deg, #6c5ce7, #341f97);
 }
 
-.teacher-btn:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 20px rgba(0,0,0,0.15);
+/* HOVER */
+.btn-student:hover,
+.btn-teacher:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
 }
 
-.reservation-form input[type="file"]{
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
+.btn-student.active {
+  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.3);
+}
+
+.btn-teacher.active {
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+}
+
+.reservation-switch button.active {
+    background: var(--primary);
+    color: white;
+}
+
+.teacher-btn {
+    height: 60px;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(135deg, #1a73e8, #0b57d0);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.teacher-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.reservation-form input[type="file"] {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
 }
