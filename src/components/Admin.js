@@ -197,14 +197,14 @@ onChange={(e)=>setSearch(e.target.value)}
 className="update-btn"
 onClick={()=>openEdit(r,"reservation")}
 >
-Update
+Modifier
 </button>
 
 <button
 className="delete-btn"
 onClick={()=>deleteReservation(r._id)}
 >
-Delete
+Supprimer
 </button>
 
 </td>
@@ -265,14 +265,14 @@ Voir CV
 className="update-btn"
 onClick={()=>openEdit(t,"teacher")}
 >
-Update
+Modifier
 </button>
 
 <button
 className="delete-btn"
 onClick={()=>deleteTeacher(t._id)}
 >
-Delete
+Supprimer
 </button>
 
 </td>
