@@ -34,7 +34,15 @@ function FormationDetails() {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={formation?.image} />
+        <meta
+          property="og:image"
+          content={`https://hashtag-academy.com${formation?.image}`}
+        />
+
+        <meta
+          name="keywords"
+          content={`${formation.title}, formation ${nom} Rabat, apprendre ${nom} Maroc`}
+        />
       </Helmet>
 
       {/* HERO */}

@@ -2,7 +2,7 @@
 
 const formationsData = {
   comptabilite: {
-    title: "Formation sur comptabilité",
+    title: "Formation Comptabilité à Rabat - Certifiée",
     image: "/formations_imgs/comptabilite.webp",
     definition:
       "Notre formation en comptabilité vous prépare à maîtriser la gestion financière des entreprises avec une approche pratique et moderne.",
@@ -30,7 +30,7 @@ const formationsData = {
   },
 
   informatique: {
-    title: "Formation sur informatique",
+    title: "Formation Informatique à Rabat - Certifiée",
     image: "/formations_imgs/informatique.webp",
     definition:
       "L’informatique consiste à développer, programmer et gérer des systèmes numériques.",
@@ -52,7 +52,7 @@ const formationsData = {
     ]
   },
   bureautique: {
-    title: "Formation sur bureautique",
+    title: "Formation Bureautique à Rabat - Certifiée",
     image: "/formations_imgs/bureautique.webp",
     definition:
       "Maîtrisez les outils bureautiques indispensables pour travailler efficacement dans toute entreprise moderne.",
@@ -80,7 +80,7 @@ const formationsData = {
     ]
   },
   commerce: {
-    title: "Formation sur commerce",
+    title: "Formation Commerce à Rabat - Certifiée",
     image: "/formations_imgs/commerce.webp",
     definition:
       "Développez des compétences stratégiques en vente, négociation et gestion commerciale pour réussir dans le monde des affaires moderne.",
@@ -109,7 +109,7 @@ const formationsData = {
     ]
   },
   gestion: {
-    title: "Formation sur gestion",
+    title: "Formation Gestion à Rabat - Certifiée",
     image: "/formations_imgs/gestion.webp",
     definition:
       "Apprenez à gérer efficacement une entreprise : finance, management et organisation.",
@@ -134,7 +134,7 @@ const formationsData = {
     ]
   },
   hotesse: {
-    title: "Formation sur hôtesse",
+    title: "Formation Hôtesse à Rabat - Certifiée",
     image: "/formations_imgs/hotesse.webp",
     definition:
       "Apprenez les techniques d’accueil, de communication et de présentation pour représenter une entreprise avec professionnalisme.",
@@ -162,7 +162,7 @@ const formationsData = {
     ]
   },
   infographie: {
-    title: "Formation sur infographie",
+    title: "Formation Infographie à Rabat - Certifiée",
     image: "/formations_imgs/infographie.webp",
     definition:
       "Développez votre créativité et maîtrisez les outils professionnels de design graphique.",
@@ -187,7 +187,7 @@ const formationsData = {
     ]
   },
   marketing: {
-    title: "Formation sur marketing",
+    title: "Formation Marketing à Rabat - Certifiée",
     image: "/formations_imgs/marketing.webp",
     tagline: "Devenez expert en stratégie digitale et publicité en ligne.",
     definition:
@@ -215,7 +215,7 @@ const formationsData = {
     ]
   },
   secretariat: {
-    title: "Formation sur secrétariat",
+    title: "Formation Secrétariat à Rabat - Certifiée",
     image: "/formations_imgs/secretariat.webp",
     definition:
       "Formez-vous aux techniques administratives modernes pour devenir un pilier organisationnel au sein d’une entreprise.",

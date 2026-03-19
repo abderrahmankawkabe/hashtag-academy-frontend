@@ -8,13 +8,20 @@ import "./Home.css";
 import { Helmet } from "react-helmet";
 
 function Home() {
+
   return (
     <div>
       <Helmet>
         <title>Hashtag Academy - Formation professionnelle au Maroc</title>
+
         <meta
           name="description"
           content="Centre de formation à Rabat. Informatique, gestion, marketing et langues. Inscription rapide."
+        />
+
+        <meta
+          name="keywords"
+          content="formation Rabat, centre formation Maroc, formation informatique Rabat, formation marketing Rabat, formation comptabilité Maroc"
         />
       </Helmet>
 
