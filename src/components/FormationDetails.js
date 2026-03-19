@@ -1,10 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import formationsData from "./formationsData";
 import "./FormationDetails.css";
+import { Helmet } from "react-helmet";
 
 function FormationDetails() {
   const { nom } = useParams();
   const formation = formationsData[nom];
+
+  const title = formation
+    ? `${formation.title} | Hashtag Academy`
+    : "Formation | Hashtag Academy";
+
+  const description = formation
+    ? formation.definition
+    : "Découvrez nos formations professionnelles.";
 
   if (!formation) {
     return (
@@ -14,8 +23,19 @@ function FormationDetails() {
     );
   }
 
+
   return (
+
     <section className="formation-details">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={formation?.image} />
+      </Helmet>
 
       {/* HERO */}
       <div className="formation-hero">
@@ -112,7 +132,7 @@ function FormationDetails() {
 
           <Link to="/#reservation" state={{ formation: formation.title || nom }} >
             <button className="cta-btn">
-              🎓 Réserver ma place maintenant 🎓 
+              🎓 Réserver ma place maintenant 🎓
             </button>
           </Link>
         </div>

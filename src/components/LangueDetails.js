@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import "./LangueDetails.css";
-
+import { Helmet } from "react-helmet";
 
 const langues = {
   francais: {
@@ -35,6 +35,7 @@ const langues = {
   },
 };
 
+
 function LangueDetails() {
   const { nom } = useParams();
   const langue = langues[nom];
@@ -49,8 +50,21 @@ function LangueDetails() {
     );
   }
 
+  const title = langue
+    ? `${langue.titre} | Hashtag Academy`
+    : "Langues | Hashtag Academy";
+
+  const description = langue
+    ? langue.description
+    : "Formations en langues professionnelles.";
+
   return (
     <section className="langue-section">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Helmet>
+
       <div className="langue-image">
         <img src={langue.image} alt={langue.titre} />
       </div>
